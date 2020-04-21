@@ -34,7 +34,7 @@ public class PetStoreContractTest extends QontractJUnitSupport {
     }
 
     private static boolean inGithubCI() {
-        return System.getenv("CI") == "true";
+        return System.getenv("CI").equals("true");
     }
 
     @AfterAll
