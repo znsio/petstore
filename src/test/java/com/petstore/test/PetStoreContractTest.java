@@ -27,7 +27,7 @@ public class PetStoreContractTest extends QontractJUnitSupport {
     private static File getContractFile() {
         if(inGithubCI()) {
             String workspace = System.getenv("GITHUB_WORKSPACE");
-            return new File(workspace + "/contracts/example/petstore/1.contract");
+            return new File(workspace + "/contracts/examples/petstore/1.contract");
         } else {
             return new File(System.getProperty("user.home") + "/.qontract/repos/petstore/repo/examples/petstore/1.contract");
         }
