@@ -1,0 +1,5 @@
+--- # Application configuration
+name: petstore
+contract-version:
+  major: 1
+  minor: 0
