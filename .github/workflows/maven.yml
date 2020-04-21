@@ -19,6 +19,7 @@ jobs:
     - uses: actions/checkout@v2.1.0
       with:
         repository: qontract/petstore-contracts
+        path: contracts
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
