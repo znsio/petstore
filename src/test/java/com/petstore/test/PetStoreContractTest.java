@@ -9,27 +9,29 @@ import run.qontract.test.QontractJUnitSupport;
 
 import java.io.File;
 
+import static run.qontract.core.versioning.RepoUtils.*;
+
 public class PetStoreContractTest extends QontractJUnitSupport {
     private static ConfigurableApplicationContext context;
 
     @BeforeAll
     public static void setUp() {
-        File contract = getContractFile();
-        System.out.println("Contract file path: " + contract.getAbsolutePath());
+        String contractPath = getContractPath();
+        System.out.println("Contract file path: " + contractPath);
+        System.setProperty("path", contractPath);
 
-        System.setProperty("path", contract.getAbsolutePath());
         System.setProperty("host", "localhost");
         System.setProperty("port", "8080");
 
         context = SpringApplication.run(Application.class);
     }
 
-    private static File getContractFile() {
+    private static String getContractPath() {
         if(inGithubCI()) {
             String workspace = System.getenv("GITHUB_WORKSPACE");
-            return new File(workspace + "/contracts/examples/petstore/1.contract");
+            return new File(workspace + "/contracts/examples/petstore/1.contract").getAbsolutePath();
         } else {
-            return new File(System.getProperty("user.home") + "/.qontract/repos/petstore/repo/examples/petstore/1.contract");
+            return new File(getContractFilePath("examples.petstore", 1)).getAbsolutePath();
         }
     }
 
