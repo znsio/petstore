@@ -9,6 +9,7 @@ import run.qontract.test.QontractJUnitSupport;
 
 import java.io.File;
 
+import static run.qontract.core.versioning.ContractIdentifierKt.contractNameToRelativePath;
 import static run.qontract.core.versioning.RepoUtils.*;
 
 public class PetStoreContractTest extends QontractJUnitSupport {
@@ -16,7 +17,7 @@ public class PetStoreContractTest extends QontractJUnitSupport {
 
     @BeforeAll
     public static void setUp() {
-        String contractPath = getContractPath();
+        String contractPath = getContractPath("examples.petstore", 1);
         System.out.println("Contract file path: " + contractPath);
         System.setProperty("path", contractPath);
 
@@ -26,12 +27,13 @@ public class PetStoreContractTest extends QontractJUnitSupport {
         context = SpringApplication.run(Application.class);
     }
 
-    private static String getContractPath() {
+    private static String getContractPath(String name, Integer version) {
         if(inGithubCI()) {
             String workspace = System.getenv("GITHUB_WORKSPACE");
-            return new File(workspace + "/contracts/examples/petstore/1.contract").getAbsolutePath();
+            String filename = workspace + File.separator + "contracts" + File.separator + contractNameToRelativePath(name) + File.separator + version.toString() + ".contract";
+            return new File(filename).getAbsolutePath();
         } else {
-            return new File(getContractFilePath("examples.petstore", 1)).getAbsolutePath();
+            return new File(getContractFilePath(name, version)).getAbsolutePath();
         }
     }
 
