@@ -8,9 +8,13 @@ import org.springframework.context.ConfigurableApplicationContext;
 import run.qontract.test.QontractJUnitSupport;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
+import static org.assertj.core.api.Assertions.fail;
+import static org.codehaus.plexus.archiver.tar.TarLongFileMode.fail;
+import static run.qontract.core.ContractUtilities.getLatestCompatibleContractFileName;
 import static run.qontract.core.versioning.ContractIdentifierKt.contractNameToRelativePath;
-import static run.qontract.core.versioning.RepoUtils.*;
 
 public class PetStoreContractTest extends QontractJUnitSupport {
     private static ConfigurableApplicationContext context;
@@ -30,10 +34,15 @@ public class PetStoreContractTest extends QontractJUnitSupport {
     private static String getContractPath(String name, Integer version) {
         if(inGithubCI()) {
             String workspace = System.getenv("GITHUB_WORKSPACE");
-            String filename = workspace + File.separator + "contracts" + File.separator + contractNameToRelativePath(name) + File.separator + version.toString() + ".contract";
-            return new File(filename).getAbsolutePath();
+            String contractPath = workspace + File.separator + "contracts" + File.separator + contractNameToRelativePath(name);
+            return getLatestCompatibleContractFileName(new File(contractPath).getAbsolutePath(), version);
         } else {
-            return new File(getContractFilePath(name, version)).getAbsolutePath();
+            Path path = Paths.get(System.getProperty("user.home"), "contracts", "petstore-contracts", contractNameToRelativePath(name)).toAbsolutePath();
+            String contractPath = getLatestCompatibleContractFileName(new File(path.toString()).getAbsolutePath(), version);
+            if(contractPath == null)
+                fail("Contract must exist at path USER_HOME/contracts/petstore-contracts. Checkout https://github.com/qontract/petstore-contracts into USER_HOME/contracts.");
+
+            return contractPath;
         }
     }
 
