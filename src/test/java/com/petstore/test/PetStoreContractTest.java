@@ -12,8 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static org.assertj.core.api.Assertions.fail;
-import static org.codehaus.plexus.archiver.tar.TarLongFileMode.fail;
-import static run.qontract.core.ContractUtilities.getLatestCompatibleContractFileName;
+import static run.qontract.core.ContractUtilities.getContractFileName;
 import static run.qontract.core.versioning.ContractIdentifierKt.contractNameToRelativePath;
 
 public class PetStoreContractTest extends QontractJUnitSupport {
@@ -21,7 +20,7 @@ public class PetStoreContractTest extends QontractJUnitSupport {
 
     @BeforeAll
     public static void setUp() {
-        String contractPath = getContractPath("examples.petstore", 1);
+        String contractPath = getContractPath("run.qontract.examples.petstore", 1, 1);
         System.out.println("Contract file path: " + contractPath);
         System.setProperty("path", contractPath);
 
@@ -31,14 +30,14 @@ public class PetStoreContractTest extends QontractJUnitSupport {
         context = SpringApplication.run(Application.class);
     }
 
-    private static String getContractPath(String name, Integer version) {
+    private static String getContractPath(String name, Integer majorVersion, Integer minorVersion) {
         if(inGithubCI()) {
             String workspace = System.getenv("GITHUB_WORKSPACE");
             String contractPath = workspace + File.separator + "contracts" + File.separator + contractNameToRelativePath(name);
-            return getLatestCompatibleContractFileName(new File(contractPath).getAbsolutePath(), version);
+            return getContractFileName(new File(contractPath).getAbsolutePath(), majorVersion, minorVersion);
         } else {
             Path path = Paths.get(System.getProperty("user.home"), "contracts", "petstore-contracts", contractNameToRelativePath(name)).toAbsolutePath();
-            String contractPath = getLatestCompatibleContractFileName(new File(path.toString()).getAbsolutePath(), version);
+            String contractPath = getContractFileName(new File(path.toString()).getAbsolutePath(), majorVersion, minorVersion);
             if(contractPath == null)
                 fail("Contract must exist at path USER_HOME/contracts/petstore-contracts. Checkout https://github.com/qontract/petstore-contracts into USER_HOME/contracts.");
 
