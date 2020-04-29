@@ -9,13 +9,13 @@ import org.springframework.web.client.HttpClientErrorException
 
 @RestController
 class Pets {
-    @PutMapping("/pets", produces = [MediaType.TEXT_PLAIN_VALUE])
-    fun create(@RequestBody pet: Pet): String {
+    @PutMapping("/pets")
+    fun create(@RequestBody pet: Pet): Int {
         DB.addPet(pet)
-        return pet.id.toString()
+        return pet.id
     }
 
-    @GetMapping("/pets/{id}", produces = [MediaType.APPLICATION_JSON_VALUE])
+    @GetMapping("/pets/{id}")
     fun get(@PathVariable("id") id: Int) = DB.findPet(id)
 
     @PostMapping("/pets")
