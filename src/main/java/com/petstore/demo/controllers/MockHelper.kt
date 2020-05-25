@@ -18,7 +18,7 @@ import java.util.*
 @ConditionalOnProperty(name=["environment"], havingValue="test")
 @RestController
 class MockHelper {
-    @PostMapping("/_server_state")
+    @PostMapping("/_state_setup")
     fun serverState(@RequestBody state: HashMap<String, Any>) {
         cleanSlate()
 
