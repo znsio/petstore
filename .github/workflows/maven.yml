@@ -9,6 +9,7 @@ on:
   pull_request:
     branches: [ master ]
   repository_dispatch:
+    types: run_action
 
 jobs:
   build:
