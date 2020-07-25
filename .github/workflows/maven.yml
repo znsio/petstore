@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ master ]
   repository_dispatch:
-    types: contracts_changed
+    types: contracts changed
 
 jobs:
   build:
