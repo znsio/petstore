@@ -21,15 +21,6 @@ public class PetStoreContractTest extends QontractJUnitSupport {
 
     @BeforeAll
     public static void setUp() {
-        System.setProperty("manifestFile", "./manifest.json");
-
-        String workingDirectory = "./target/qontract";
-        File workingDirectoryFile = new java.io.File(workingDirectory);
-        if(workingDirectoryFile.exists())
-            deleteRecursively(workingDirectoryFile);
-
-        System.setProperty("workingDirectory", workingDirectory);
-
         System.setProperty("host", "localhost");
         System.setProperty("port", "8080");
 
