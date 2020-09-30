@@ -1,8 +1,8 @@
 package com.petstore.demo.model
 
 object DB {
-    private val pets: MutableList<Pet> = mutableListOf()
-    private val orders: MutableList<Order> = mutableListOf()
+    private val pets: MutableList<Pet> = mutableListOf(Pet("Archibald", "dog", "available", 10), Pet("Gemini", "dog", "available", 20))
+    private val orders: MutableList<Order> = mutableListOf(Order("dog", 2, "pending", 10), Order("cat", 1, "pending", 20))
 
     fun addPet(pet: Pet) { pets.add(pet) }
 
