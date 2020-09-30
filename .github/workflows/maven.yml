@@ -30,4 +30,9 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       working-directory: main
-      run: mvn test
+      run: mvn test package
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2.1.4
+      with:
+        name: Petstore executable fat jar
+        path: target/petstore-1.0-jar-with-dependencies.jar
