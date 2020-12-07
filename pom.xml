@@ -11,7 +11,7 @@
     <properties>
         <kotlin.version>1.4.10</kotlin.version>
         <maven.compiler>1.8</maven.compiler>
-        <qontract.version>0.19.0</qontract.version>
+        <qontract.version>0.20.1</qontract.version>
     </properties>
 
     <dependencies>
