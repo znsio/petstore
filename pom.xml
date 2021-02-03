@@ -9,9 +9,9 @@
     <version>1.0</version>
 
     <properties>
-        <kotlin.version>1.4.10</kotlin.version>
+        <kotlin.version>1.4.21-2</kotlin.version>
         <maven.compiler>1.8</maven.compiler>
-        <qontract.version>0.21.0</qontract.version>
+        <qontract.version>0.22.0</qontract.version>
     </properties>
 
     <dependencies>
