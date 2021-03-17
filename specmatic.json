@@ -1,0 +1,22 @@
+{
+  "sources": [
+    {
+      "provider": "git",
+      "repository": "https://github.com/znsio/petstore-contracts.git",
+      "test": [
+        "run/qontract/examples/petstore/api_1.qontract"
+      ]
+    }
+  ],
+  "environments": {
+    "eat": {
+      "baseurls": {
+        "auth.qontract": "http://localhost:8080"
+      },
+      "variables": {
+        "username": "jackie",
+        "password": "PaSsWoRd"
+      }
+    }
+  }
+}

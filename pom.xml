@@ -9,9 +9,9 @@
     <version>1.0</version>
 
     <properties>
-        <kotlin.version>1.4.21-2</kotlin.version>
+        <kotlin.version>1.4.31</kotlin.version>
         <maven.compiler>1.8</maven.compiler>
-        <qontract.version>0.22.0</qontract.version>
+        <specmatic.version>0.24.1</specmatic.version>
     </properties>
 
     <dependencies>
@@ -88,16 +88,16 @@
         </dependency>
 
         <dependency>
-            <groupId>run.qontract</groupId>
-            <artifactId>qontract-core</artifactId>
-            <version>${qontract.version}</version>
+            <groupId>in.specmatic</groupId>
+            <artifactId>specmatic-core</artifactId>
+            <version>${specmatic.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>run.qontract</groupId>
+            <groupId>in.specmatic</groupId>
             <artifactId>junit5-support</artifactId>
-            <version>${qontract.version}</version>
+            <version>${specmatic.version}</version>
             <scope>test</scope>
         </dependency>
 

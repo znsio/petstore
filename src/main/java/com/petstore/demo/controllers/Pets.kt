@@ -1,16 +1,16 @@
 package com.petstore.demo.controllers
 
-import com.petstore.demo.model.DB
-import com.petstore.demo.model.Pet
+import com.petstore.demo.model.*
 import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.client.HttpClientErrorException
 
 @RestController
 class Pets {
     @PutMapping("/pets")
-    fun create(@RequestBody pet: Pet): Int {
+    fun create(@RequestBody pet: Pet, @RequestHeader("Authenticate", required = true) header: String): Int {
+        validateAuthToken(header)
+
         DB.addPet(pet)
         return pet.id
     }
@@ -19,7 +19,9 @@ class Pets {
     fun get(@PathVariable("id") id: Int) = DB.findPet(id)
 
     @PostMapping("/pets")
-    fun update(@RequestBody updatedPet: Pet) {
+    fun update(@RequestBody updatedPet: Pet, @RequestHeader("Authenticate", required = true) header: String) {
+        validateAuthToken(header)
+
         if(updatedPet.id <= 0)
             throw HttpClientErrorException(HttpStatus.BAD_REQUEST)
 
@@ -27,7 +29,11 @@ class Pets {
     }
 
     @DeleteMapping("/pets/{id}")
-    fun delete(@PathVariable("id") id: Int) = DB.deletePet(id)
+    fun delete(@PathVariable("id") id: Int, @RequestHeader("Authenticate", required = true) header: String) {
+        validateAuthToken(header)
+
+        DB.deletePet(id)
+    }
 
     @GetMapping("/pets")
     fun search(@RequestParam(name="name", required=false) name: String?,
