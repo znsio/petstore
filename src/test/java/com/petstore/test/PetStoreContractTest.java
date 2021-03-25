@@ -15,7 +15,7 @@ public class PetStoreContractTest extends SpecmaticJUnitSupport {
         System.setProperty("host", "localhost");
         System.setProperty("port", "8080");
 
-        System.setProperty("environment", "eat");
+        System.setProperty("environment", "staging");
 
         context = SpringApplication.run(Application.class);
     }
